@@ -1,4 +1,8 @@
-/* This is the primary initial file for
+/**
+ * Jacob Landowski, CS132, Winter 2667, Section A
+ * Assignment #2, 1/10/18
+ * 
+ * This is the primary initial file for
  * CS 132 Assignment #2.  The purpose of this file
  * is to create a simplistic encryption tool to store and
  * reload user names and passwords.   In doing so
@@ -30,15 +34,19 @@ const string MORSE_ALPHA[] = {
                                 "**-*", "--*"  
                              };
 
-    //  hashed numbers/punctuation, 0 - 9 | . | , | ? | ' ' % 26
+    //  hashed numbers/punctuation, 0 - 9 | . | , | ? | space % 26
+    //  18 => , | 20 => . | 11 => ? | 6 => space
+    //  ...
+    //  0 => '4' | 1 => '5' 
+    //  ... 
+    //  22 => '0' | 23 => '1'
     //  array size and modulo is 26 because this produced no collisions
-    //  and I'm too lazy to deal with probing stuff
-    // , = > 18 | . => 20 | 
+    //  and I'm too lazy to deal with probing stuff or fancy formulas 
 const string MORSE_NUM_PUNCT[] = { 
                                     "****-", "*****", "-****", "--***", // 3
                                     "---**", "----*", " ", "", // 7
                                     "", "", "", "**--**", // 11
-                                    "", "", "", "", // 15
+                                    "", "", "", "", // 15e
                                     "", "", "--**--", "", // 19
                                     "*-*-*-", "", "", "*----", // 23
                                     "**---", "***--"  // 25
@@ -48,6 +56,13 @@ const string MORSE_NUM_PUNCT[] = {
 
  int main()
  {
+    cout << "Char , => " << MORSE_NUM_PUNCT[',' % 26] << endl;
+    cout << "Char . => " << MORSE_NUM_PUNCT['.' % 26] << endl;
+    cout << "Char ? => " << MORSE_NUM_PUNCT['?' % 26] << endl;
+    cout << "Char 1 => " << MORSE_NUM_PUNCT['1' % 26] << endl;
+    cout << "Char 5 => " << MORSE_NUM_PUNCT['5' % 26] << endl;
+    cout << "Char  9 => " << MORSE_NUM_PUNCT['9' % 26] << endl;
+
      string userPassword;
      int option;
 
@@ -102,6 +117,7 @@ const string MORSE_NUM_PUNCT[] = {
 
 void addToFile(string fname)
 {
+    ofstream file(fname.c_str(), ios::app);
     // fname = filename given to us
     // get password from user
     // check string for valid password requirements
@@ -112,6 +128,22 @@ void addToFile(string fname)
  
 void checkFile(string fname)
 {
+    ifstream file(fname.c_str());
+
+    if(file.is_open())
+    {
+        cout << "Opened filed \"" << fname << "\"" << endl;
+        string line;
+        while(file >> line)
+        {
+            cout << line << endl;
+        }
+        file.close();
+    }
+    else
+    {
+        cout << "Failed to open file \"" << fname << "\"" << endl; 
+    }
     // fname = filename given to us
     // get password from user
     // encrypt password
