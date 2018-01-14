@@ -19,6 +19,12 @@ using namespace std;
 
 void addToFile(string fname);
 void checkFile(string fname);
+bool meetsRequirements(const string &password);
+bool issymbol(char c);
+string encryptPassword(const string &password);
+string toMorseCode(char c);
+void savePassword(string &password);
+void toLower(string &password);
 
     //  hashed chars, a - z % 26 
     //  0 => h  | 1 => i  | 2 => j  | 3 => k
@@ -41,10 +47,11 @@ const string MORSE_ALPHA[] = {
     //  ... 
     //  22 => '0' | 23 => '1'
     //  array size and modulo is 26 because this produced no collisions
-    //  and I'm too lazy to deal with probing stuff or fancy formulas 
+    //  and I'm too lazy to deal with probing stuff or fancy formulas
+    //  Bonus side effect : any odd symbols will probably become an empty string 
 const string MORSE_NUM_PUNCT[] = { 
                                     "****-", "*****", "-****", "--***", // 3
-                                    "---**", "----*", " ", "", // 7
+                                    "---**", "----*", "/", "", // 7
                                     "", "", "", "**--**", // 11
                                     "", "", "", "", // 15e
                                     "", "", "--**--", "", // 19
@@ -52,17 +59,11 @@ const string MORSE_NUM_PUNCT[] = {
                                     "**---", "***--"  // 25
                                  };
 
-
+const int MORSE_ALPHA_HASH = 26;
+const int MORSE_NUM_PUNCT_HASH = 26;
 
  int main()
  {
-    cout << "Char , => " << MORSE_NUM_PUNCT[',' % 26] << endl;
-    cout << "Char . => " << MORSE_NUM_PUNCT['.' % 26] << endl;
-    cout << "Char ? => " << MORSE_NUM_PUNCT['?' % 26] << endl;
-    cout << "Char 1 => " << MORSE_NUM_PUNCT['1' % 26] << endl;
-    cout << "Char 5 => " << MORSE_NUM_PUNCT['5' % 26] << endl;
-    cout << "Char  9 => " << MORSE_NUM_PUNCT['9' % 26] << endl;
-
      string userPassword;
      int option;
 
@@ -118,14 +119,27 @@ const string MORSE_NUM_PUNCT[] = {
 void addToFile(string fname)
 {
     ofstream file(fname.c_str(), ios::app);
-    // fname = filename given to us
-    // get password from user
-    // check string for valid password requirements
-    // if not valid exit function and return to caller
-    // encrypt password
-    // add password to file
+
+    cin.ignore(); // erase leftover whitespace from menu
+
+        // get password from user
+    string userPassword; 
+    getline(cin, userPassword);
+
+        // check string for valid password requirements
+    if(!meetsRequirements(userPassword))
+    {
+        cout << "Doesn't meet requirements" << endl;
+        return;
+    }
+
+    toLower(userPassword);
+    
+    string encryptedPassword = encryptPassword(userPassword);
+    
+    savePassword(encryptedPassword);
 }
- 
+
 void checkFile(string fname)
 {
     ifstream file(fname.c_str());
@@ -136,7 +150,9 @@ void checkFile(string fname)
         string line;
         while(file >> line)
         {
-            cout << line << endl;
+                // check hashed password against each hashed line in this file
+                // if match found break out
+                // cout << line << endl;
         }
         file.close();
     }
@@ -144,9 +160,70 @@ void checkFile(string fname)
     {
         cout << "Failed to open file \"" << fname << "\"" << endl; 
     }
-    // fname = filename given to us
-    // get password from user
-    // encrypt password
-    // see if encrypted password exists in file
-    // give user notification
+        // fname = filename given to us
+        // get password from user
+        // encrypt password
+        // see if encrypted password exists in file
+        // give user notification
 }
+
+bool meetsRequirements(const string &password)
+{
+    int letters = 0;
+    int numbers = 0; 
+    int symbols = 0;
+
+    for(unsigned int i = 0; i < password.length(); i++)
+    {
+             if(isalpha(password[i]))  letters++;
+        else if(isdigit(password[i]))  numbers++;
+        else if(issymbol(password[i])) symbols++;
+    }
+
+    return letters >= 10 && numbers >= 2 && symbols >= 1;
+}
+
+bool issymbol(char c)
+{
+    return c == ' ' || c == '.' || c == ',' || c == '?';
+}
+
+void toLower(string &password)
+{
+    for(unsigned int i = 0; i < password.length(); i++)
+    {
+        if(password[i] >= 'A' || password[i] <= 'Z')
+        { 
+            password[i] += 32;
+        }
+    }
+}
+
+string encryptPassword(const string &password)
+{
+    string encrypted = "";
+    unsigned int lastIndex = password.length() - 1;
+
+    for(unsigned int i = 0; i < lastIndex; i++)
+    {
+        // encrypted += toMorseCode(password[i]) + ' ';
+    }
+
+        // fence post so no space at end
+    encrypted += toMorseCode(password[lastIndex]);
+
+    return encrypted;
+}
+
+string toMorseCode(char c)
+{
+        //  if not alphabetical, use num/punct hash table
+    return c < 'a' ? MORSE_NUM_PUNCT[c % MORSE_NUM_PUNCT_HASH] 
+                   : MORSE_ALPHA[c % MORSE_ALPHA_HASH]; 
+}
+
+void savePassword(string &password)
+{
+    cout << password << endl;
+}
+
