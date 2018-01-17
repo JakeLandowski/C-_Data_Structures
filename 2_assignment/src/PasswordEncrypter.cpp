@@ -210,6 +210,7 @@ string getUserPassword()
 */
 bool meetsRequirements(const string &password)
 {
+    int total   = 0;
     int letters = 0;
     int numbers = 0; 
     int symbols = 0;
@@ -219,9 +220,16 @@ bool meetsRequirements(const string &password)
              if(isalpha(password[i]))  letters++;
         else if(isdigit(password[i]))  numbers++;
         else if(issymbol(password[i])) symbols++;
+
+        total++;
     }
 
-    return letters >= 10 && numbers >= 2 && symbols >= 1;
+    bool onlyValidChars = total == (letters + numbers + symbols);
+    bool minLetters = letters >= 10;
+    bool minNumbers = numbers >= 2;
+    bool minSymbols = symbols >= 1;
+
+    return onlyValidChars && minLetters && minNumbers && minSymbols;
 }
 
 bool issymbol(char c)
