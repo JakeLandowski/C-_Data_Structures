@@ -53,5 +53,15 @@ int TriviaQuestion::askQuestion()
 
 void shuffleQuestions()
 {
-    for()
+    const int numAnswers = 4;
+    int picked;
+    string temp;
+
+    for(int i = numAnswers - 1; i > 0; i--)
+    {
+        picked = rand() % i;
+        temp   = answers[picked];
+        answers[picked] = answers[i];
+        answers[i] = temp; 
+    }
 }
