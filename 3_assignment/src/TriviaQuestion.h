@@ -15,10 +15,9 @@ class TriviaQuestion
     private:
         std::string question;
         std::string answers[4];
+        int answerIndex;
 
-        static std::vector<std::string> const split(const std::string &splitting, 
-                                                    const std::string &delimiter,
-                                                    int estimatedCapacity = 10);
+        int[] shuffleQuestions();
 };
 
 #endif

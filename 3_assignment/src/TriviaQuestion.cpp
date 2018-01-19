@@ -2,6 +2,7 @@
 #include <stdlib.h>
 
 #include "TriviaQuestion.h"
+#include "Utilities.h"
 
 using namespace std;
 
@@ -15,7 +16,9 @@ void TriviaQuestion::setup(string data)
 {
     if(data.empty()) return;
 
-    vector<string> components = split(data, " :: ", 5);
+    answerIndex = 0;
+
+    vector<string> components = Utilities::split(data, " :: ", 5);
 
     question   = components[0];
     answers[0] = components[1];
@@ -34,7 +37,10 @@ int TriviaQuestion::askQuestion()
 {
     if(question.empty()) cerr << "Question not setup yet." << endl;
 
-    rand();
+    int correctAnswer;
+
+
+
     // figure out random order
     // figure out correct answer number
     // ask question
@@ -45,27 +51,7 @@ int TriviaQuestion::askQuestion()
     return 0; 
 }
 
-vector<string> const TriviaQuestion::split(const string &splitting, 
-                                           const string &delimiter,
-                                           int estimatedCapacity)
+void shuffleQuestions()
 {
-    vector<string> tokens;
-    tokens.reserve(estimatedCapacity);
-    
-    size_t start_pos = 0;
-    size_t found_pos;
-
-    while((found_pos = splitting.find(delimiter, start_pos)) != string::npos)
-    {
-            //  push string up til first delimiter
-        tokens.push_back(splitting.substr(start_pos, found_pos - start_pos));
-        
-            //  skip to the position AFTER this delimiter
-        start_pos = found_pos + delimiter.length();
-    }
-
-        //  fence post last token
-    tokens.push_back(splitting.substr(start_pos));
-
-    return tokens;
+    for()
 }
