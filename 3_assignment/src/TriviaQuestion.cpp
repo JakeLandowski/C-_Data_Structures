@@ -1,4 +1,3 @@
-#include <time.h>
 #include <stdlib.h>
 
 #include "TriviaQuestion.h"
@@ -8,7 +7,6 @@ using namespace std;
 
 TriviaQuestion::TriviaQuestion(string data)
 {
-    srand(time(0));
     setup(data);  
 }
             
@@ -37,7 +35,7 @@ int TriviaQuestion::askQuestion()
 
     for(int i = 0; i < NUM_ANSWERS; i++)
     {
-        cout << "\t" + i << ". " << answers[i] << endl;
+        cout << '\t' << i + 1 << ". " << answers[i] << endl;
     }
 
     cout << endl << "Your Answer >> ";
