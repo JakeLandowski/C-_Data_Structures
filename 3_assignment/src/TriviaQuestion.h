@@ -13,11 +13,12 @@ class TriviaQuestion
         int askQuestion();
 
     private:
+        static const int NUM_ANSWERS = 4;
         std::string question;
-        std::string answers[4];
+        std::string answers[NUM_ANSWERS];
         int answerIndex;
 
-        int[] shuffleQuestions();
+        void shuffleQuestions();
 };
 
 #endif

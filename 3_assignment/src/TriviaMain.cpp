@@ -15,10 +15,17 @@ using namespace std;
 
 int main()
 {
-    unsigned int timestamp = time(0);
+    clock_t start = clock();
 
-    TriviaQuestion question("question here :: answer 1 here :: answer 2 here :: answer 3 here :: answer 4 here");
+    // TriviaQuestion question("question here :: answer 1 here :: answer 2 here :: answer 3 here :: answer 4 here");
+    TriviaQuestion question("x :: a :: b :: c :: d");
 
-    cout << "Finished in " << timestamp << endl;
+    // open file
+    // get num questions from line 1
+    // 
+
+
+
+    cout << "Finished in " << ((float) (clock() - start) / CLOCKS_PER_SEC) << endl;
     return 0;
 }
