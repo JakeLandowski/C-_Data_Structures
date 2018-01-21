@@ -16,6 +16,7 @@ void TriviaQuestion::setup(string data)
 
     answerIndex = 0;
 
+        // java-esque split()
     vector<string> components = Utilities::split(data, " :: ", 5);
 
     question   = components[0];
@@ -29,6 +30,8 @@ int TriviaQuestion::askQuestion()
 {
     if(question.empty()) cerr << "Question not setup yet." << endl;
 
+
+    //====== PRINT SHUFLED QUESTION/ANSWERS ======//
     shuffleQuestions();
     
     cout << question << endl;
@@ -38,17 +41,21 @@ int TriviaQuestion::askQuestion()
         cout << '\t' << i + 1 << ". " << answers[i] << endl;
     }
 
+
+    //====== GET USER ANSWER ======//
     cout << endl << "Your Answer >> ";
     cout.flush(); // force print
 
-    int userAnswer;
+    int userAnswer = 0;
 
     cin >> userAnswer;
     cin.ignore(); // ignore remaining whitespace 
 
-    bool isIncorrect = userAnswer - 1 != answerIndex;
 
-    if(isIncorrect)
+    //====== CHECK ANSWER, INFORM USER, RETURN RESULT ======//
+    bool incorrect = userAnswer - 1 != answerIndex;
+
+    if(incorrect)
     {
         cout << endl << "~~ Incorrect! ~~" << endl
              << "Answer : " << answers[answerIndex] << endl << endl;

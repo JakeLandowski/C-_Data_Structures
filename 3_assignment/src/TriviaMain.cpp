@@ -2,7 +2,10 @@
  *  Jacob Landowski, CS132, Winter 2667, Section A
  *  Assignment #2, 1/10/18
  * 
- *  This program...
+ *  This program reads 250 questions from the file "TriviaData.txt"
+ *  and wraps them in TriviaQuestion objects. It then prompts the user
+ *  for a number of questions to ask, then begins quizzing them with
+ *  random question selections. Afterwards it calculates their score.
  */
 
 
@@ -17,22 +20,28 @@ using namespace std;
 
 int main()
 {
-    clock_t start = clock();
+    //  timer for reference
+    //clock_t start = clock();
+
     srand(time(0)); // seed random
 
     ifstream triviaFile("TriviaData.txt");
 
-    if(triviaFile.is_open())
+    if(triviaFile.is_open()) 
     {
-        int numQuestions, numRequested, numAsked, numCorrect;
+        int numQuestions,  numAsked,  numCorrect;
+            numQuestions = numAsked = numCorrect = 0;
 
+        //====== CREATE QUESTIONS ARRAY ======//
         triviaFile >> numQuestions;
         triviaFile.ignore(); // clear whitespace
         triviaFile.ignore(); // need two for first line, not sure why
 
         TriviaQuestion questions[numQuestions];
-        string data;
 
+
+        //====== SETUP EACH QUESTION OBJECT ======//
+        string data;
         cout << endl << "Loading trivia game... ";
         cout.flush();
 
@@ -47,9 +56,24 @@ int main()
 
         triviaFile.close(); // done with file
 
-        questions[0].askQuestion();
+
+        //====== ASK HOW MANY AND BEGIN QUIZ ======//
+        cout << "How many questions would you like to try?" << endl
+             << ">> ";
+        cout.flush();
+
+        cin >> numAsked;
+
+        for(int i = 0; i < numAsked; i++)
+        {
+            numCorrect += questions[rand() % 250].askQuestion(); 
+        }
+
+        cout << "Your score was " << numCorrect << " out of " 
+             << numAsked << " for " 
+             << ((double) numCorrect / numAsked) * 100 << "%." << endl;
     }
-    else
+    else // file error
     {
         cerr << "Failed to open file : \"TriviaData.txt\"" << endl;  
     }
@@ -57,7 +81,8 @@ int main()
     if(triviaFile.is_open()) triviaFile.close();
 
 
-
-    cout << "Finished in " << ((float) (clock() - start) / CLOCKS_PER_SEC) << endl;
+    //  timer for reference
+    //cout << "Finished in " << ((float) (clock() - start) / CLOCKS_PER_SEC) << endl;
+    
     return 0;
 }
