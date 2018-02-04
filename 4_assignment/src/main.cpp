@@ -37,9 +37,9 @@ int main()
     FractionalComplex fc2(5, 4, 7, 8);
     FractionalComplex fc3(15, 5, 5, -5);
     
-    cout << fc1 << endl;
-    cout << fc2 << endl;
-    cout << fc3 << endl;
+    cout << fc1 + fc2 << endl;
+    cout << fc2 + fc3 << endl;
+    cout << fc3 + fc1 << endl;
 
     //intro();
 	//Uncomment these as you complete various sections.
