@@ -9,7 +9,8 @@ class FractionalComplex
         FractionalComplex(int a = 0, int c = 0);
         FractionalComplex(int a, int b, int c, int d);
         FractionalComplex(const Fraction &real, const Fraction &imaginary);
-        void printme();
+        void printme() const;
+        double length() const;
 
         FractionalComplex operator+(const FractionalComplex &other);
         FractionalComplex operator-(const FractionalComplex &other);

@@ -1,5 +1,6 @@
-#include <iostream>
 #include "FractionalComplex.h"
+#include <iostream>
+#include <math.h>
 
 using namespace std;
 
@@ -20,9 +21,17 @@ FractionalComplex::FractionalComplex(const Fraction &real, const Fraction &imagi
  //                   PUBLIC METHODS                    //
 //=====================================================//
 
-void FractionalComplex::printme()
+void FractionalComplex::printme() const
 {
     cout << "[" << real << " + " << imaginary << "i]" << endl;
+}
+
+double FractionalComplex::length() const
+{
+    return sqrt
+    (
+        pow(real.toDouble(), 2) + pow(imaginary.toDouble(), 2)
+    );
 }
 
   //=====================================================//

@@ -12,6 +12,8 @@ class Fraction
         void setDenom(int den); // checks negs/zeroes/reduce
         int  getNumer() const;
         int  getDenom() const;
+
+        double toDouble() const;
          
         Fraction operator+(const Fraction &other);
         Fraction operator-(const Fraction &other);

@@ -24,7 +24,10 @@ Fraction::Fraction(const Fraction& other)
  //                  PUBLIC METHODS                     //
 //=====================================================//
 
-
+double Fraction::toDouble() const
+{
+    return (double) numerator / denominator;
+}
 
   //=====================================================//
  //                 GETTERS / SETTERS                   //
