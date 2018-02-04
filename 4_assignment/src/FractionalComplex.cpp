@@ -44,7 +44,7 @@ FractionalComplex FractionalComplex::operator+(const FractionalComplex &other)
     //  Fraction addition implemented in Fraction.cpp
     FractionalComplex result
     (
-        real      + other.real,
+             real + other.real,
         imaginary + other.imaginary
     );
 
@@ -57,7 +57,7 @@ FractionalComplex FractionalComplex::operator-(const FractionalComplex &other)
     //  Fraction addition implemented in Fraction.cpp
     FractionalComplex result
     (
-        real      - other.real,
+             real - other.real,
         imaginary - other.imaginary
     );
 
@@ -66,7 +66,18 @@ FractionalComplex FractionalComplex::operator-(const FractionalComplex &other)
 
 bool FractionalComplex::operator==(const FractionalComplex &other)
 {  
-    return real == other.real && imaginary == other.imaginary;
+    return      real == other.real && 
+           imaginary == other.imaginary;
+}
+
+bool FractionalComplex::operator<(const FractionalComplex &other)
+{  
+    return length() < other.length();
+}
+
+bool FractionalComplex::operator>(const FractionalComplex &other)
+{  
+    return length() > other.length();
 }
 
 std::ostream& operator<<(std::ostream &o, const FractionalComplex &right)
