@@ -32,9 +32,14 @@ void section8();
 
 int main()
 {
-    FractionalComplex fc(15, 45, 5, -5);
-    fc.printme();
 
+    FractionalComplex fc1(1, 1, 1, 1);
+    FractionalComplex fc2(5, 4, 7, 8);
+    FractionalComplex fc3(15, 5, 5, -5);
+    
+    cout << fc1 << endl;
+    cout << fc2 << endl;
+    cout << fc3 << endl;
 
     //intro();
 	//Uncomment these as you complete various sections.

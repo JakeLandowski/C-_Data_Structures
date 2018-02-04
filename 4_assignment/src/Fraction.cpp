@@ -4,13 +4,17 @@
  //                   CONSTRUCTORS                      //
 //=====================================================//
 
+    // Initializer list so reduce calls in setters don't break
+    // from uninitialized ints
 Fraction::Fraction(int num, int den)
+: numerator(1), denominator(1) 
 {
     setNumer(num);
     setDenom(den);
 }
-
+    
 Fraction::Fraction(const Fraction& other)
+: numerator(1), denominator(1)
 {
     setNumer(other.numerator);
     setDenom(other.denominator);
@@ -26,20 +30,19 @@ Fraction::Fraction(const Fraction& other)
  //                 GETTERS / SETTERS                   //
 //=====================================================//
 
-
 void Fraction::setNumer(int num)
 {
      numerator = num; 
-     checkNegatives(); 
      checkZeroes();
+     checkNegatives(); 
      reduce(); 
 }
 
 void Fraction::setDenom(int den)
 { 
     denominator = den; 
-    checkNegatives(); 
     checkZeroes();
+    checkNegatives(); 
     reduce(); 
 }
 

@@ -30,8 +30,14 @@ void FractionalComplex::printme()
 //=====================================================//
 
 FractionalComplex FractionalComplex::operator+(const FractionalComplex &other)
-{
-    FractionalComplex result;
+{  
+    //  Use (Fraction, Fraction) constructor to just add the real and imaginaries
+    //  Fraction addition implemented in Fraction.cpp
+    FractionalComplex result
+    (
+        real      + other.real,
+        imaginary + other.imaginary
+    );
 
     return result;    
 }
