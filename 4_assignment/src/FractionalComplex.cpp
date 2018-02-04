@@ -42,6 +42,19 @@ FractionalComplex FractionalComplex::operator+(const FractionalComplex &other)
     return result;    
 }
 
+FractionalComplex FractionalComplex::operator-(const FractionalComplex &other)
+{  
+    //  Use (Fraction, Fraction) constructor to just add the real and imaginaries
+    //  Fraction addition implemented in Fraction.cpp
+    FractionalComplex result
+    (
+        real      - other.real,
+        imaginary - other.imaginary
+    );
+
+    return result;    
+}
+
 std::ostream& operator<<(std::ostream &o, const FractionalComplex &right)
 {
     o << '[' << right.real << '/' << right.imaginary << "i]";

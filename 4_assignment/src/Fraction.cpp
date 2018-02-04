@@ -55,24 +55,25 @@ int Fraction::getDenom() const { return denominator; }
 
 Fraction Fraction::operator+(const Fraction &other)
 {
-    int newNumer   = numerator;
-    int newDenom   = denominator;
-    int otherNumer = other.numerator;
-    int otherDenom = other.denominator;
+    return addFractions
+    (
+        numerator, 
+        denominator,
+        other.numerator, 
+        other.denominator
+    );
+}
 
-    // if denominators are the same, just add numerators
-    if(denominator == otherDenom) newNumer += otherNumer;
-    else // cross multiply
-    {
-        newNumer *= otherDenom;
-        newNumer += newDenom * otherNumer;
-        newDenom *= otherDenom;
-    } 
-
-    // this checks zeroes/negs/reduction already
-    Fraction result(newNumer, newDenom);
-
-    return result;
+Fraction Fraction::operator-(const Fraction &other)
+{
+    //  flip other.numerator to reuse addFractions method
+    return addFractions
+    (
+        numerator, 
+        denominator,
+        -other.numerator, 
+        other.denominator
+    );
 }
 
 std::ostream& operator<<(std::ostream &o, const Fraction &right)
@@ -85,6 +86,23 @@ std::ostream& operator<<(std::ostream &o, const Fraction &right)
   //=====================================================//
  //                  PRIVATE METHODS                    //
 //=====================================================//
+
+Fraction Fraction::addFractions(int a, int b, int c, int d)
+{
+    // if denominators are the same, just add numerators
+    if(b == d) a += c;
+    else // cross multiply
+    {
+        a *= d;
+        a += b * c;
+        b *= d;
+    } 
+
+    // this checks zeroes/negs/reduction already
+    Fraction result(a, b);
+
+    return result;
+}
 
 /**
  *  Euclid's algorithm to find GCD between x and y

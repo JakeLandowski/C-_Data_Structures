@@ -14,6 +14,7 @@ class Fraction
         int  getDenom() const;
          
         Fraction operator+(const Fraction &other);
+        Fraction operator-(const Fraction &other);
         friend std::ostream& operator<<(std::ostream &o, const Fraction &right);
 
     private:
@@ -23,6 +24,7 @@ class Fraction
         int  gcd(int x, int y);
         void checkNegatives();
         void checkZeroes();
+        Fraction addFractions(int a, int b, int c, int d);
 };
 
 #endif
