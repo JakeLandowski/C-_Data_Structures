@@ -64,6 +64,11 @@ FractionalComplex FractionalComplex::operator-(const FractionalComplex &other)
     return result;    
 }
 
+bool FractionalComplex::operator==(const FractionalComplex &other)
+{  
+    return real == other.real && imaginary == other.imaginary;
+}
+
 std::ostream& operator<<(std::ostream &o, const FractionalComplex &right)
 {
     o << '[' << right.real << '/' << right.imaginary << "i]";

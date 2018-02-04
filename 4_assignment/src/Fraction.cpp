@@ -79,6 +79,12 @@ Fraction Fraction::operator-(const Fraction &other)
     );
 }
 
+bool Fraction::operator==(const Fraction &other)
+{
+    return   numerator == other.numerator &&
+           denominator == other.denominator;
+}
+
 std::ostream& operator<<(std::ostream &o, const Fraction &right)
 {
     o << '(' << right.numerator << '/' << right.denominator << ')';

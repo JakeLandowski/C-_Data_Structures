@@ -12,8 +12,9 @@ class FractionalComplex
         void printme() const;
         double length() const;
 
-        FractionalComplex operator+(const FractionalComplex &other);
-        FractionalComplex operator-(const FractionalComplex &other);
+        FractionalComplex operator+ (const FractionalComplex &other);
+        FractionalComplex operator- (const FractionalComplex &other);
+                     bool operator==(const FractionalComplex &other);
         friend std::ostream& operator<<(std::ostream &o, const FractionalComplex &right);
 
     private:
