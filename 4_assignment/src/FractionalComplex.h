@@ -1,6 +1,8 @@
 #ifndef H_FractionalComplex_H
 #define H_FractionalComplex_H
 
+#include "Fraction.h"
+
 class FractionalComplex
 {
     public:
@@ -10,27 +12,7 @@ class FractionalComplex
         FractionalComplex operator+(const FractionalComplex &other);
 
     private:
-        int a, b, c, d;
-        
-        void reduce();
-        int  gcd(int x, int y);
-        void checkNegatives();
-        void checkZeroes();
-};
-
-
-class Fraction
-{
-    public:
-        Fraction(int a = 0, int c = 0);
-        
-    private:
-        int numerator, denominator;
-
-        void reduce();
-        int  gcd(int x, int y);
-        void checkNegatives();
-        void checkZeroes();
+        Fraction real, imaginary;
 };
 
 #endif
