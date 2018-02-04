@@ -32,7 +32,7 @@ void section8();
 
 int main()
 {
-    FractionalComplex fc(5, 2, 5, 3);
+    FractionalComplex fc(15, 45, 5, -5);
     fc.printme();
 
 
