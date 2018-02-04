@@ -13,6 +13,9 @@ FractionalComplex::FractionalComplex(int a, int c)
 FractionalComplex::FractionalComplex(int a, int b, int c, int d) 
 : real(a, b), imaginary(c, d) { }
 
+FractionalComplex::FractionalComplex(const Fraction &real, const Fraction &imaginary)
+: real(real), imaginary(imaginary) { }
+
   //=====================================================//
  //                   PUBLIC METHODS                    //
 //=====================================================//
@@ -26,13 +29,19 @@ void FractionalComplex::printme()
  //                     OPERATORS                       //
 //=====================================================//
 
-// FractionalComplex FractionalComplex::operator+(const FractionalComplex &other)
-// {
-    
-// }
+FractionalComplex FractionalComplex::operator+(const FractionalComplex &other)
+{
+    FractionalComplex result;
+
+    return result;    
+}
 
 std::ostream& operator<<(std::ostream &o, const FractionalComplex &right)
 {
     o << '[' << right.real << '/' << right.imaginary << "i]";
     return o;   
 }
+
+  //=====================================================//
+ //                  PRIVATE METHODS                    //
+//=====================================================//
