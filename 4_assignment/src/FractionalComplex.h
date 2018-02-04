@@ -19,4 +19,18 @@ class FractionalComplex
 };
 
 
+class Fraction
+{
+    public:
+        Fraction(int a = 0, int c = 0);
+        
+    private:
+        int numerator, denominator;
+
+        void reduce();
+        int  gcd(int x, int y);
+        void checkNegatives();
+        void checkZeroes();
+};
+
 #endif
