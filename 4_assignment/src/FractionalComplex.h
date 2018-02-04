@@ -10,6 +10,7 @@ class FractionalComplex
         FractionalComplex(int a, int b, int c, int d);
         void printme();
         FractionalComplex operator+(const FractionalComplex &other);
+        friend std::ostream& operator<<(std::ostream &o, const FractionalComplex &right);
 
     private:
         Fraction real, imaginary;

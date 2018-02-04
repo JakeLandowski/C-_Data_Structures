@@ -8,6 +8,10 @@ Fraction::Fraction(int num, int den)
 {
     numerator   = num;
     denominator = den;
+
+    checkNegatives();
+    checkZeroes();
+    reduce();
 }
 
   //=====================================================//
