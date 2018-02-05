@@ -50,17 +50,61 @@ FractionalComplex FractionalComplex::operator+(const FractionalComplex &other)
  //                  PRIVATE METHODS                    //
 //=====================================================//
 
-/**
- *  Euclid's algorithm to find GCD between x and y
- *  Set larger number to the difference until both are equal
- *  Return that number which is the GCD
-*/
-int FractionalComplex::gcd(int x, int y)
+FractionalComplex FractionalComplex::operator*(const FractionalComplex &other)
 {
-    if(x == 0 || y == 0) return 1;
+    FractionalComplex first
+    (
+        real * other.real,
+        real * other.imaginary
+    );
 
-    if(x < 0) x *= -1;  // use absolute value
-    if(y < 0) y *= -1;
+    // This one swaps fractions and flips sign
+    // due to expanding
+    FractionalComplex second
+    (
+        (imaginary * other.imaginary) * -1,
+        imaginary * other.real
+    );
+
+    return first + second;    
+}
+
+FractionalComplex FractionalComplex::operator*(const int &num)
+{
+    FractionalComplex result
+    (
+             real * num,
+        imaginary * num
+    );
+
+    return result;
+}
+
+//  POST
+FractionalComplex FractionalComplex::operator++(int)
+{
+    FractionalComplex old(real, imaginary);
+
+    real++;
+    imaginary++;
+
+    return old;
+}
+
+//  PRE
+FractionalComplex FractionalComplex::operator++()
+{
+    real++;
+    imaginary++;
+
+    return *this;
+}
+
+bool FractionalComplex::operator==(const FractionalComplex &other)
+{  
+    return      real == other.real && 
+           imaginary == other.imaginary;
+}
 
     while(x != y)
     {
@@ -99,17 +143,8 @@ void FractionalComplex::reduce()
  */ 
 void FractionalComplex::checkNegatives()
 {
-    if(b < 0)
-    {
-        a *= -1;
-        b *= -1;
-    }
-
-    if(d < 0)
-    {
-        c *= -1;
-        d *= -1;
-    } 
+    o << '[' << right.real << " + " << right.imaginary << "i]";
+    return o;   
 }
 
 /**

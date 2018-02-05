@@ -32,24 +32,16 @@ void section8();
 
 int main()
 {
-    FractionalComplex fc(15, 45, 5, -5);
-    fc.printme();
-
-
-    //intro();
-	//Uncomment these as you complete various sections.
-    //section1();
-    //section2();
-    //section3();
-    //section4();
-    //section5();
-    //section6();
-    //section7();
-    //section8();
+    intro();
+    section1();
+    section2();
+    section3();
+    section4();
+    section5();
+    section6();
+    section7();
+    section8();
 }
-
-
-
 
 void intro()
 {
@@ -63,7 +55,7 @@ void intro()
     cout << "* get more and more to work : Good Luck!" << endl;
     cout << "************************************************************************"<< endl << endl;
 }
-/*
+
 void section1()
 {
     cout << "** Section 1" << endl;
@@ -281,4 +273,3 @@ void section8()
     cout << "a = " << ++b << " This should be one bigger" << endl;
     cout << "a = " << b   << " This should match above" << endl;
 }
-*/
