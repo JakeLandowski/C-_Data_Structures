@@ -1,3 +1,12 @@
+/**
+ *  Jacob Landowski, CS132, Winter 2667, Section A
+ *  Assignment #4, 2/4/18
+ * 
+ *  FractionalComplex.cpp
+ * 
+ *  Implemenations for the FractionalComplex class.
+ */
+
 #include "FractionalComplex.h"
 #include <iostream>
 #include <math.h>

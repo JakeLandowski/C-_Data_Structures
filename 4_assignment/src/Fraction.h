@@ -1,3 +1,16 @@
+/**
+ *  Jacob Landowski, CS132, Winter 2667, Section A
+ *  Assignment #4, 2/4/18
+ * 
+ *  Fraction.h
+ * 
+ *  This class represents a fraction number, using 2 integers
+ *  a/b. It has overloaded operators for calculations as well as
+ *  helper methods for keeping itself valid and simplified. This 
+ *  class is used by the FractionalComplex class to repesent 
+ *  complex fractional numbers. Works as a standalone class as well.
+ */
+
 #ifndef H_Fraction_H
 #define H_Fraction_H
 
