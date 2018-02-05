@@ -18,6 +18,10 @@ class FractionalComplex
         //~~~Operators~~~//
         FractionalComplex operator+ (const FractionalComplex &other);
         FractionalComplex operator- (const FractionalComplex &other);
+        FractionalComplex operator* (const FractionalComplex &other);
+        FractionalComplex operator* (const int &num);
+        FractionalComplex operator++(int);
+        FractionalComplex operator++();
                      bool operator==(const FractionalComplex &other);
                      bool operator< (const FractionalComplex &other);
                      bool operator> (const FractionalComplex &other);

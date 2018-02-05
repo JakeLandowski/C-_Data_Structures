@@ -23,6 +23,9 @@ class Fraction
         Fraction operator+ (const Fraction &other);
         Fraction operator- (const Fraction &other);
         Fraction operator* (const Fraction &other);
+        Fraction operator* (const int &num);
+        Fraction operator++(int);
+        Fraction operator++();
             bool operator==(const Fraction &other);
         friend std::ostream& operator<<(std::ostream &o, const Fraction &right);
 

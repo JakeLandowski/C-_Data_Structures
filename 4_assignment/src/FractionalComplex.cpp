@@ -66,6 +66,56 @@ FractionalComplex FractionalComplex::operator-(const FractionalComplex &other)
     return result;    
 }
 
+FractionalComplex FractionalComplex::operator*(const FractionalComplex &other)
+{
+    FractionalComplex first
+    (
+        real * other.real,
+        real * other.imaginary
+    );
+
+    // This one swaps fractions and flips sign
+    // due to expanding
+    FractionalComplex second
+    (
+        (imaginary * other.imaginary) * -1,
+        imaginary * other.real
+    );
+    
+    return first + second;    
+}
+
+FractionalComplex FractionalComplex::operator*(const int &num)
+{
+    FractionalComplex result
+    (
+             real * num,
+        imaginary * num
+    );
+
+    return result;
+}
+
+//  POST
+FractionalComplex FractionalComplex::operator++(int)
+{
+    FractionalComplex old(real, imaginary);
+
+    real++;
+    imaginary++;
+
+    return old;
+}
+
+//  PRE
+FractionalComplex FractionalComplex::operator++()
+{
+    real++;
+    imaginary++;
+
+    return *this;
+}
+
 bool FractionalComplex::operator==(const FractionalComplex &other)
 {  
     return      real == other.real && 
@@ -84,7 +134,7 @@ bool FractionalComplex::operator>(const FractionalComplex &other)
 
 std::ostream& operator<<(std::ostream &o, const FractionalComplex &right)
 {
-    o << '[' << right.real << '/' << right.imaginary << "i]";
+    o << '[' << right.real << " + " << right.imaginary << "i]";
     return o;   
 }
 

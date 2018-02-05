@@ -90,6 +90,31 @@ Fraction Fraction::operator*(const Fraction &other)
     return result;
 }
 
+Fraction Fraction::operator*(const int &num)
+{
+    Fraction result(numerator * num, denominator);
+
+    return result;
+}
+
+//  POST
+Fraction Fraction::operator++(int)
+{
+    Fraction old(numerator, denominator);
+
+    numerator += denominator;
+
+    return old;
+}
+
+//  PRE
+Fraction Fraction::operator++()
+{
+    numerator += denominator;
+
+    return *this;
+}
+
 bool Fraction::operator==(const Fraction &other)
 {
     return   numerator == other.numerator &&
