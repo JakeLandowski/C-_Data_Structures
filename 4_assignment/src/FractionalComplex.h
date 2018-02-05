@@ -17,6 +17,7 @@
 class FractionalComplex
 {
     public:
+        //~~~Constructors~~~//
         FractionalComplex(int a = 0, int c = 0);
         FractionalComplex(int a, int b, int c, int d);
         FractionalComplex(const Fraction &real, const Fraction &imaginary);
@@ -38,13 +39,7 @@ class FractionalComplex
         friend std::ostream& operator<<(std::ostream &o, const FractionalComplex &right);
 
     private:
-        int a, b, c, d;
-        
-        void reduce();
-        int  gcd(int x, int y);
-        void checkNegatives();
-        void checkZeroes();
+        Fraction real, imaginary;
 };
-
 
 #endif
