@@ -12,7 +12,7 @@ class FractionalComplex
         FractionalComplex(const Fraction &real, const Fraction &imaginary);
         
         //~~~General~~~//
-        void printme() const;
+        void  printme() const;
         double length() const;
 
         //~~~Operators~~~//

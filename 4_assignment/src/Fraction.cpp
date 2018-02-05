@@ -4,7 +4,7 @@
  //                   CONSTRUCTORS                      //
 //=====================================================//
 
-    // Initializer list so reduce calls in setters don't break
+    // Initializer list so reduce() calls in setters don't break
     // from uninitialized ints
 Fraction::Fraction(int num, int den)
 : numerator(1), denominator(1) 
@@ -79,6 +79,17 @@ Fraction Fraction::operator-(const Fraction &other)
     );
 }
 
+Fraction Fraction::operator*(const Fraction &other)
+{
+    Fraction result
+    (
+          numerator * other.numerator,
+        denominator * other.denominator
+    );
+
+    return result;
+}
+
 bool Fraction::operator==(const Fraction &other)
 {
     return   numerator == other.numerator &&
@@ -96,11 +107,15 @@ std::ostream& operator<<(std::ostream &o, const Fraction &right)
  //                  PRIVATE METHODS                    //
 //=====================================================//
 
+/**
+ *  If denominators same, just add numerators
+ *  Else cross multiply
+ *  Create new fraction and return it 
+ */
 Fraction Fraction::addFractions(int a, int b, int c, int d)
 {
-    // if denominators are the same, just add numerators
     if(b == d) a += c;
-    else // cross multiply
+    else 
     {
         a *= d;
         a += b * c;
@@ -117,7 +132,7 @@ Fraction Fraction::addFractions(int a, int b, int c, int d)
  *  Euclid's algorithm to find GCD between x and y
  *  Set larger number to the difference until both are equal
  *  Return that number which is the GCD
-*/
+ */
 int Fraction::gcd(int x, int y)
 {
     if(x == 0 || y == 0) return 1;

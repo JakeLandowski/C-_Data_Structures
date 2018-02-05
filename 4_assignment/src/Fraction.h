@@ -22,6 +22,7 @@ class Fraction
         //~~~Operators~~~//
         Fraction operator+ (const Fraction &other);
         Fraction operator- (const Fraction &other);
+        Fraction operator* (const Fraction &other);
             bool operator==(const Fraction &other);
         friend std::ostream& operator<<(std::ostream &o, const Fraction &right);
 

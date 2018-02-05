@@ -30,7 +30,9 @@ double FractionalComplex::length() const
 {
     return sqrt
     (
-        pow(real.toDouble(), 2) + pow(imaginary.toDouble(), 2)
+        pow(real.toDouble(), 2) 
+        + 
+        pow(imaginary.toDouble(), 2)
     );
 }
 
