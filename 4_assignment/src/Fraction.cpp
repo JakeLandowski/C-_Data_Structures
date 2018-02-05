@@ -1,3 +1,12 @@
+/**
+ *  Jacob Landowski, CS132, Winter 2667, Section A
+ *  Assignment #4, 2/4/18
+ * 
+ *  Fraction.cpp
+ * 
+ *  Implemenations for the Fraction class.
+ */
+
 #include "Fraction.h"
 
   //=====================================================//

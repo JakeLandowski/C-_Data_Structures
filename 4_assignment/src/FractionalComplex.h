@@ -1,5 +1,18 @@
+/**
+ *  Jacob Landowski, CS132, Winter 2667, Section A
+ *  Assignment #4, 2/4/18
+ * 
+ *  FractionalComplex.h
+ * 
+ *  This class represents 2 fractions in the form of (a/b) + (c/d)i
+ *  with overloaded operators for calculating FractionalComplex objects.
+ *  It uses the Fraction class to abstract most of the calculations.
+ */
+
 #ifndef H_FractionalComplex_H
 #define H_FractionalComplex_H
+
+#include "Fraction.h"
 
 class FractionalComplex
 {
