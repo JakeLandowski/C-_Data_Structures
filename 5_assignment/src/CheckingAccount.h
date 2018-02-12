@@ -12,8 +12,10 @@ class CheckingAccount : public BankingAccount
         virtual void endOfYear() = 0;
         virtual void printStatus() const = 0;
 
-        static const double OVERDRAW_FEE = 15;
         static const double APR = 0;
+        static const double OVERDRAW_FEE = 15;
+        static const double MONTHLY_FEE  = 5;
+        static const double ANNUAL_BASE_FEE = 5;
 };
 
 #endif
