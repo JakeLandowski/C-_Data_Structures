@@ -41,6 +41,11 @@ void BankingAccount::monthlyCalc()
     balance += balance * (apr / 12);
 }
 
+void BankingAccount::endOfYear()
+{
+    numWithdrawals = numDeposits = 0;
+}
+
     //  If other id is longer automatically larger
     //  Otherwise compare string digits if same length 
 bool BankingAccount::operator<(const BankingAccount &other) const

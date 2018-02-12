@@ -11,7 +11,7 @@ class BankingAccount
         virtual void deposit(double amt);
         virtual double withdraw(double amt);
         virtual void monthlyCalc();
-        virtual void endOfYear() = 0;
+        virtual void endOfYear();
         virtual void printStatus() const = 0;
         bool operator<(const BankingAccount &other) const;
 
