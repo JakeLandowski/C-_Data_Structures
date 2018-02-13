@@ -2,7 +2,7 @@
 #include <iostream>
 
 const double CreditAccount::APR = 7;
-const double CreditAccount::CLOSED_THRESHOLD = 10000;
+const double CreditAccount::CLOSED_THRESHOLD = -10000;
 const double CreditAccount::EOY_FEE = 25;
 
 CreditAccount::CreditAccount(std::string newID, double newBalance)
@@ -10,12 +10,18 @@ CreditAccount::CreditAccount(std::string newID, double newBalance)
 {
     apr = APR;
     lateStatus = 0;
+    closed = false;
 }
 
 void CreditAccount::deposit(double amt)
 {
     if(balance < 0)  BankAccount::deposit(amt);
-    if(balance >= 0) lateStatus = 0;
+    if(balance >= 0)
+    {
+        lateStatus = 0;
+        closed = false;
+    } 
+        
 }
 
 double CreditAccount::withdraw(double amt)
@@ -41,7 +47,7 @@ void CreditAccount::monthlyCalc()
 
 void CreditAccount::endOfYear()
 {
-    closed = balance >= CLOSED_THRESHOLD;
+    closed = balance <= CLOSED_THRESHOLD;
     balance -= EOY_FEE;
 }
 

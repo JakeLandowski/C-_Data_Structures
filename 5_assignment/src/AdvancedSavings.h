@@ -1,3 +1,14 @@
+/**
+ *  Jacob Landowski, CS132, Winter 2667, Section A
+ *  Assignment #5, 2/13/18
+ * 
+ *  CreditAccount.h
+ * 
+ *  Class that extends from BankAccount.
+ *  Represents a special savings account
+ *  with bonus interest and various fees
+ */
+
 #ifndef H_AdvancedSavings_H
 #define H_AdvancedSavings_H
 

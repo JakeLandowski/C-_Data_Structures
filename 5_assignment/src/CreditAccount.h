@@ -1,3 +1,16 @@
+/**
+ *  Jacob Landowski, CS132, Winter 2667, Section A
+ *  Assignment #5, 2/13/18
+ * 
+ *  CreditAccount.h
+ * 
+ *  Class that extends from BankAccount. 
+ *  Represents a credit account by allowing 
+ *  the account to go negative, accrues negative
+ *  interest over time. Has a late and closed status
+ *  that can prevent withdrawals. 
+ */
+
 #ifndef H_CreditAccount_H
 #define H_CreditAccount_H
 

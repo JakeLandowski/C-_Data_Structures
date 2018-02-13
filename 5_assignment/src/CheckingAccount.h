@@ -1,3 +1,15 @@
+/**
+ *  Jacob Landowski, CS132, Winter 2667, Section A
+ *  Assignment #5, 2/13/18
+ * 
+ *  CreditAccount.h
+ * 
+ *  Class that extends from BankAccount.
+ *  Represents a normal checking account with
+ *  and overdraw fee, no interest, and monthly
+ *  and annual fees.
+ */
+
 #ifndef H_CheckingAccount_H
 #define H_CheckingAccount_H
 

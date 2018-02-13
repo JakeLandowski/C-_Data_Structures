@@ -37,7 +37,7 @@ double BankAccount::withdraw(double amt)
         return amt;
     }
     
-    std::cerr << "Cannot withdraw " << amt << "from " << balance;
+    std::cerr << "Cannot withdraw $" << amt << " from $" << balance << '.' << std::endl;
     
     return 0;
 }

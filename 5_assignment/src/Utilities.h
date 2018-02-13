@@ -1,3 +1,13 @@
+/**
+ *  Jacob Landowski, CS132, Winter 2667, Section A
+ *  Assignment #5, 2/13/18
+ * 
+ *  Utilities.h
+ * 
+ *  This file contains a library of useful utility functions
+ *  to be used in c++ assignments.
+ */
+
 #ifndef H_Utilities_H
 #define H_Utilities_H
 
