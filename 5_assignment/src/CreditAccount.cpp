@@ -26,6 +26,8 @@ void CreditAccount::deposit(double amt)
 
 double CreditAccount::withdraw(double amt)
 {
+        //  Can't reuse parent withdraw because this class
+        //  balance will usually be negative
     if(!closed && lateStatus < 2)
     {
         numWithdrawals++;
@@ -49,6 +51,7 @@ void CreditAccount::endOfYear()
 {
     closed = balance <= CLOSED_THRESHOLD;
     balance -= EOY_FEE;
+    BankAccount::endOfYear(); // reset numWithdrawals/numDeposits
 }
 
 void CreditAccount::printStatus() const

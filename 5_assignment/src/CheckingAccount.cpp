@@ -29,6 +29,7 @@ void CheckingAccount::monthlyCalc()
 void CheckingAccount::endOfYear()
 {
     balance -= ANNUAL_BASE_FEE + (numWithdrawals * 0.1);
+    BankAccount::endOfYear(); // reset numWithdrawals/numDeposits
 }
 
 void CheckingAccount::printStatus() const

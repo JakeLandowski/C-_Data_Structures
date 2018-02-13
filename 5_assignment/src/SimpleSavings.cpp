@@ -13,6 +13,7 @@ SimpleSavings::SimpleSavings(std::string newID, double newBalance)
 void SimpleSavings::endOfYear()
 {
     balance -= EOY_FEE;
+    BankAccount::endOfYear(); // reset numWithdrawals/numDeposits
 }
 
 void SimpleSavings::printStatus() const

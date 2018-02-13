@@ -28,12 +28,12 @@ void AdvancedSavings::monthlyCalc()
     else 
         apr = NORMAL_APR;
 
-    BankAccount::monthlyCalc();
+    BankAccount::monthlyCalc(); // adds interest
 }
 
 void AdvancedSavings::endOfYear()
 {
-    BankAccount::endOfYear();
+    BankAccount::endOfYear(); // reset numWithdrawals/numDeposits
     balance -= (numWithdrawals <= BONUS_EOY_THRESHOLD) ? BONUS_EOY_FEE : NORMAL_EOY_FEE;
 }
 
