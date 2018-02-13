@@ -1,19 +1,19 @@
-#ifndef H_BankingAccount_H
-#define H_BankingAccount_H
+#ifndef H_BankAccount_H
+#define H_BankAccount_H
 
 #include "Utilities.h" // Inlcudes <string> <vector>
 
-class BankingAccount
+class BankAccount
 {
     public:
-        BankingAccount(std::string newID, double newBalance);
+        BankAccount(std::string newID, double newBalance);
         std::string getID() const;
         virtual void deposit(double amt);
         virtual double withdraw(double amt);
         virtual void monthlyCalc();
         virtual void endOfYear();
         virtual void printStatus() const = 0;
-        bool operator<(const BankingAccount &other) const;
+        bool operator<(const BankAccount &other) const;
 
     protected:
         std::string id;

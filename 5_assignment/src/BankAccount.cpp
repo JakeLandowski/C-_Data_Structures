@@ -1,8 +1,8 @@
-#include "BankingAccount.h"
+#include "BankAccount.h"
 
 #include <iostream>
 
-BankingAccount::BankingAccount(std::string newID, double newBalance)
+BankAccount::BankAccount(std::string newID, double newBalance)
 {
     if(!Utilities::isNumeric(newID))
     {
@@ -14,17 +14,21 @@ BankingAccount::BankingAccount(std::string newID, double newBalance)
     numWithdrawals = numDeposits = apr = 0;
 }
 
-std::string BankingAccount::getID() const
+std::string BankAccount::getID() const
 {
     return id;
 }
 
-void BankingAccount::deposit(double amt)
+void BankAccount::deposit(double amt)
 {
-    balance += amt > 0 ? amt : 0;
+    if(amt > 0) 
+    {
+        numDeposits++;
+        balance += amt;
+    }
 }
 
-double BankingAccount::withdraw(double amt)
+double BankAccount::withdraw(double amt)
 {
     if(amt <= balance)
     {
@@ -32,23 +36,25 @@ double BankingAccount::withdraw(double amt)
         numWithdrawals++;
         return amt;
     }
-
+    
     std::cerr << "Cannot withdraw " << amt << "from " << balance;
+    
+    return 0;
 }
 
-void BankingAccount::monthlyCalc()
+void BankAccount::monthlyCalc()
 {
-    balance += balance * (apr / 12);
+    balance += balance * ((apr / 12) / 100);
 }
 
-void BankingAccount::endOfYear()
+void BankAccount::endOfYear()
 {
     numWithdrawals = numDeposits = 0;
 }
 
     //  If other id is longer automatically larger
     //  Otherwise compare string digits if same length 
-bool BankingAccount::operator<(const BankingAccount &other) const
+bool BankAccount::operator<(const BankAccount &other) const
 {
     return id.length() < other.id.length() || id < other.id;
 }

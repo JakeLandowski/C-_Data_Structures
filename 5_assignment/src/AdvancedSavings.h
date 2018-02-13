@@ -1,23 +1,23 @@
 #ifndef H_AdvancedSavings_H
 #define H_AdvancedSavings_H
 
-#include "BankingAccount.h"
+#include "BankAccount.h"
 
-class AdvancedSavings : public BankingAccount
+class AdvancedSavings : public BankAccount
 {
     public:
         AdvancedSavings(std::string newID, double newBalance);
         virtual double withdraw(double amt);
         virtual void monthlyCalc();
-        virtual void endOfYear() = 0;
-        virtual void printStatus() const = 0;
+        virtual void endOfYear();
+        virtual void printStatus() const;
     
-        static const double BONUS_APR_THRESHOLD = 10000;
-        static const double NORMAL_APR = 2;
-        static const double BONUS_APR  = 3;
-        static const int    BONUS_EOY_THRESHOLD = 0;
-        static const double NORMAL_EOY_FEE = 10;
-        static const double BONUS_EOY_FEE  = 5;
+        static const double BONUS_APR_THRESHOLD;
+        static const double NORMAL_APR;
+        static const double BONUS_APR;
+        static const int    BONUS_EOY_THRESHOLD;
+        static const double NORMAL_EOY_FEE;
+        static const double BONUS_EOY_FEE;
 };
 
 #endif

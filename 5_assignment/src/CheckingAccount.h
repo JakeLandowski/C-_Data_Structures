@@ -1,21 +1,21 @@
 #ifndef H_CheckingAccount_H
 #define H_CheckingAccount_H
 
-#include "BankingAccount.h"
+#include "BankAccount.h"
 
-class CheckingAccount : public BankingAccount
+class CheckingAccount : public BankAccount
 {
     public:
         CheckingAccount(std::string newID, double newBalance);
         virtual double withdraw(double amt);
         virtual void monthlyCalc();
-        virtual void endOfYear() = 0;
-        virtual void printStatus() const = 0;
+        virtual void endOfYear();
+        virtual void printStatus() const;
 
-        static const double APR = 0;
-        static const double OVERDRAW_FEE = 15;
-        static const double MONTHLY_FEE  = 5;
-        static const double ANNUAL_BASE_FEE = 5;
+        static const double APR;
+        static const double OVERDRAW_FEE;
+        static const double MONTHLY_FEE;
+        static const double ANNUAL_BASE_FEE;
 };
 
 #endif

@@ -1,16 +1,24 @@
 #include "AdvancedSavings.h"
 #include <iostream>
 
+const double AdvancedSavings::BONUS_APR_THRESHOLD = 10000;
+const double AdvancedSavings::NORMAL_APR = 2;
+const double AdvancedSavings::BONUS_APR  = 3;
+const int    AdvancedSavings::BONUS_EOY_THRESHOLD = 0;
+const double AdvancedSavings::NORMAL_EOY_FEE = 10;
+const double AdvancedSavings::BONUS_EOY_FEE  = 5;
+
 AdvancedSavings::AdvancedSavings(std::string newID, double newBalance)
-: BankingAccount(newID, newBalance) 
+: BankAccount(newID, newBalance) 
 {
     apr = NORMAL_APR;
 }
 
 double AdvancedSavings::withdraw(double amt)
 {
-    BankingAccount::withdraw(amt);
-    balance -= numWithdrawals;
+    if(amt <= balance) balance -= numWithdrawals;
+    double returnAmt = BankAccount::withdraw(amt);
+    return returnAmt;
 }
 
 void AdvancedSavings::monthlyCalc()
@@ -20,12 +28,12 @@ void AdvancedSavings::monthlyCalc()
     else 
         apr = NORMAL_APR;
 
-    BankingAccount::monthlyCalc();
+    BankAccount::monthlyCalc();
 }
 
 void AdvancedSavings::endOfYear()
 {
-    BankingAccount::endOfYear();
+    BankAccount::endOfYear();
     balance -= (numWithdrawals <= BONUS_EOY_THRESHOLD) ? BONUS_EOY_FEE : NORMAL_EOY_FEE;
 }
 
