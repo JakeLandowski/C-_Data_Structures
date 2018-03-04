@@ -8,9 +8,9 @@
 class TextMap
 {
     public:
-        TextMap(std::string text = "");
-        void parseText(const std::string &text, const int &order = 5);
-        std::string generate(const int length = 200);
+        TextMap(std::string text = "", int order = 3);
+        void parseText(std::string &text);
+        std::string generate(const int size = 200);
 
     private:
         struct WeightedNGram
@@ -25,6 +25,7 @@ class TextMap
 
         void weighProbabilities();
         char findFirstInRange(const int &num, const std::map<int, char> &charRange) const;
+        int order;
 };
 
 #endif

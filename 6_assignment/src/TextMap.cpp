@@ -2,18 +2,20 @@
 #include "iostream"
 
 // #define printGrams
-#define printMap
+// #define printMap
 // #define printWeighted
 
 using namespace std;
 
-TextMap::TextMap(string text)
+TextMap::TextMap(string text, int order)
 {
+    this->order = order > 0 ? order : 1;
     if(!text.empty()) parseText(text);
 };
 
-void TextMap::parseText(const string &text, const int &order)
+void TextMap::parseText(string &text)
 {
+    text += ' ';
     string gram;
     char charAfter;
     int grabAmount = 0;
@@ -38,7 +40,11 @@ void TextMap::parseText(const string &text, const int &order)
             charAfter = text[i + grabAmount];
         }
 
-        if(grabAmount < order) grabAmount++;
+        if(grabAmount < order) 
+        {
+            i--;
+            grabAmount++;
+        }
 
 
 
@@ -130,16 +136,56 @@ for(const auto &gram_struct : weighted)
 
 }
 
-string TextMap::generate(const int length)
+string TextMap::generate(int size)
 {
-    cout << length;
+    if(ngrams.empty()) return "No text parsed yet.";
+
     weighProbabilities();
-    return "";
+
+    string seed;
+    seed.reserve(size);
+
+    string gram;
+    char newChar;
+    int charIndex;
+    int i = 0 - order;
+
+    while(i < size)
+    {
+        if(i < 0) gram = seed.substr(0); // while seed not big enough grab all
+        else      gram = seed.substr(i, i + order); // grab order length and move;
+
+        charIndex = rand() % weighted.at(gram).max;
+
+        try
+        {
+            newChar = findFirstInRange(charIndex, weighted.at(gram).probs);
+            seed.append(1, newChar);
+        }
+        catch(const string &err)
+        {
+            cout << err << endl;
+            break;
+        }
+
+        i++;
+
+        // if((i == size && newChar == ' ') || (newChar != '.' && newChar != '!' && newChar != '?')) size++;
+    }
+
+    cout << "LAST CHAR: " << (int)newChar << endl;
+
+    return seed;
 }
 
 char TextMap::findFirstInRange(const int &num, const map<int, char> &charRange) const
 {
-    cout << num;
-    for(const auto &p : charRange){ cout << p.first; }
-    return ' ';
+    for(const auto &int_char : charRange)
+    {
+        if(num <= int_char.first) return int_char.second;
+    }
+
+    string err = "Failed to find char with index: " + num;
+
+    throw err;
 }
