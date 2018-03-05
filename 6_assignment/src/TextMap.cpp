@@ -33,11 +33,21 @@ void TextMap::parseText(string &text)
             gram = text.substr(i, grabAmount - wrapAmount);
             gram += text.substr(0, wrapAmount);
             charAfter = text[wrapAmount];
+            if(charAfter == '\n')
+            {
+                charAfter = ' ';
+                text[wrapAmount] = ' ';
+            }
         }
         else
         {
             gram = text.substr(i, grabAmount);
             charAfter = text[i + grabAmount];
+            if(charAfter == '\n')
+            {
+                charAfter = ' ';
+                text[i + grabAmount] = ' ';
+            }
         }
 
         if(grabAmount < order) 
@@ -170,11 +180,9 @@ string TextMap::generate(int size)
 
         i++;
 
-        // if((i == size && newChar == ' ') || (newChar != '.' && newChar != '!' && newChar != '?')) size++;
+        if((i == size && newChar == ' ') || (i == size && newChar != '.' && newChar != '!' && newChar != '?')) size++;
     }
-
-    cout << "LAST CHAR: " << (int)newChar << endl;
-
+    
     return seed;
 }
 

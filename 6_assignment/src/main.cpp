@@ -18,7 +18,8 @@ int main()
                     istreambuf_iterator<char>());;
 
     TextMap map(contents, 5);
-    cout << map.generate(500) << endl;
+
+    cout << endl << map.generate(500) << endl << endl;
 
     cout << "Finished in " << ((double) (clock() - start) / CLOCKS_PER_SEC) 
          << " seconds." << endl;

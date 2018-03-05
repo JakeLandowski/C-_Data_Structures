@@ -8,7 +8,7 @@
 class TextMap
 {
     public:
-        TextMap(std::string text = "", int order = 3);
+        TextMap(std::string text = "", int order = 5);
         void parseText(std::string &text);
         std::string generate(const int size = 200);
 
