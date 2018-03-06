@@ -8,7 +8,7 @@
 class TextMap
 {
     public:
-        TextMap(std::string text = "", int order = 5);
+        TextMap(int order = 5);
         void parseText(std::string &text);
         std::string generate(const int size = 200);
 
@@ -16,8 +16,8 @@ class TextMap
         struct WeightedNGram
         {
             std::map<int, char> probs; // This needs to be ordered so I can loop 
-                                       // through in order and find first char range
-            int max;
+                                       // through in order and find first char
+            int max;                   // range randomly
         };
 
         std::unordered_map<std::string, std::unordered_map<char, int>> ngrams;
@@ -25,6 +25,7 @@ class TextMap
 
         void weighProbabilities();
         char findFirstInRange(const int &num, const std::map<int, char> &charRange) const;
+        char isGood(const char &c) const;
         int order;
 };
 
