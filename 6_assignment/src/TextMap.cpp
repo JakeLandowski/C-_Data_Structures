@@ -1,10 +1,6 @@
 #include "TextMap.h"
 #include "iostream"
 
-// #define printGrams
-// #define printMap
-// #define printWeighted
-
 using namespace std;
 
 TextMap::TextMap(int order)
@@ -12,12 +8,22 @@ TextMap::TextMap(int order)
     this->order = order > 0 ? order : 1;
 };
 
+/**
+ *  Iterate one character at a time, grabbing substrings at each
+ *  position to use as a key for the character following that substring.
+ *  Each found character for a key increments that character's count.
+ * 
+ *  Main flaw is that this method references a string for speed but is 
+ *  modifying it to get rid of bad characters.
+*/
 void TextMap::parseText(string &text)
 {
-    if(!text.empty())
+    try{
+    if(!text.empty() && (text.length() * 2) - 1 > order)
     {
 
-        text += ' ';  // Add padding to separate end from start when wrapping
+            // Add padding to separate end from start when wrapping
+        if(text[text.length() - 1 != ' ']) text += ' '; 
         string gram;            // The substring key to log "the" "he_", "e_r", etc... 
         char charAfter;         // The character to log for an N Gram
         int grabAmount = 0;     // Amt of text to grab for an N Gram, 0 up to Order level
@@ -29,68 +35,54 @@ void TextMap::parseText(string &text)
         {
             offset = len - 1 - i;
 
+            //~~~ Parsing Stuff ~~~//
+
             if(offset < grabAmount) // Near end of string, start wrapping
             {
                 wrapAmount = grabAmount - offset - 1;
                 gram = text.substr(i, grabAmount - wrapAmount); // Grab from end
-                gram += text.substr(0, wrapAmount);     // Grab from start too
-                charAfter = isGood(text[wrapAmount]);
-                text[wrapAmount] = charAfter;       
-            }
+                gram += text.substr(0, wrapAmount);    // Grab from start too
+                charAfter = isGood(text[wrapAmount]);  // Grab char following
+                text[wrapAmount] = charAfter;          // Erase crappy char to not
+            }                                          // break later iterations
             else
             {
                 gram = text.substr(i, grabAmount); // Grab N Gram key
                 charAfter = isGood(text[i + grabAmount]);  // Grab char following it
-                text[i + grabAmount] = charAfter;
-            }
+                text[i + grabAmount] = charAfter;   //  Erase crappy char to not
+            }                                       //  break later iterations
 
-            if(grabAmount < order) // Scale grab amount from 0 up til Order level
+            if(grabAmount < order) // Ramp up grab amount from 0 up to Order level
             {
                 i--;  // Hold loop position back until full order
                 grabAmount++;
             }
 
-        
+            //~~~ Map Stuff ~~~//
 
-#ifdef printGrams //==============================================//
-cout << '\'' << gram << "\' => \'" << charAfter << '\'' << endl;
-#endif //=========================================================//
+            if(ngrams.count(gram) <= 0) // if gram doesn't exist
+                ngrams[gram]; // create char map at this gram 
 
+            auto charCount = ngrams.at(gram).find(charAfter);
 
-
-        if(ngrams.count(gram) <= 0) // if gram doesn't exist
-            ngrams[gram]; // create char map at this gram 
-
-        auto charCount = ngrams.at(gram).find(charAfter);
-
-        if(charCount == ngrams.at(gram).end()) // if char not found 
-            ngrams.at(gram)[charAfter] = 1;    // create char at 1  
-        else
-            ngrams.at(gram).at(charAfter)++; // else increment that char count
+            if(charCount == ngrams.at(gram).end()) // if char not found 
+                ngrams.at(gram)[charAfter] = 1;    // create char at 1  
+            else
+                ngrams.at(gram).at(charAfter)++; // else increment that char count
+        }
     }
 
 
-
-#ifdef printMap //===============================================//
-for(const auto &gram_charMap : ngrams)
-{
-    cout << '\"' << gram_charMap.first << '\"' << endl << '[' << endl;
-
-    for(const auto &char_count : gram_charMap.second)
+    
+    }
+    catch(out_of_range)
     {
-        cout << "\t" << char_count.first << " => \'" << char_count.second << '\'' << endl;
-    }
-
-    cout << "]" << endl << endl;
-}
-#endif //=========================================================//
-
-
-
+        cerr << "Thrown out of range in initial parse" << endl;
     }
 }
 
-/**
+/** Original NGram map:
+ * 
  * [
  *   'the' = 
  *          [
@@ -101,7 +93,7 @@ for(const auto &gram_charMap : ngrams)
  *          ]
  * ]
  * 
- * Will turn into weighted:
+ * Will turn into weighted map:
  * 
  * [
  *   'the' = 
@@ -118,61 +110,36 @@ for(const auto &gram_charMap : ngrams)
  *          ]
  * ]
  * 
- *  Then pick a random number and find the first
+ *  Then pick a random number from 0 => max and find the first
  *  range it falls under for a weighted random choice.
  */
 void TextMap::weighProbabilities()
 {
     int acc;
-           //  pair<gram, map<char, int>>
+           //  pair<gram, map<char, int>> in original map
     for(const auto &gram_charMap : ngrams)
     {
         acc = 0;
 
-        weighted[gram_charMap.first]; // create map at gram
+        weighted[gram_charMap.first]; // create weighted charMap at gram
 
-               //  pair<char, int>
+               //  pair<char, int> in map of original map
         for(const auto &char_count : gram_charMap.second)
         {
             acc += char_count.second; // accumulate
 
-                // set accumulated int to char
+                // set current accumulated int to char
             weighted.at(gram_charMap.first).probs[acc] = char_count.first;
         }
             // assign max to final accumulation
         weighted.at(gram_charMap.first).max = acc;
     }
-
-
-
-
-
-
-#ifdef printWeighted //===============================================//
-for(const auto &gram_struct : weighted)
-{
-    cout << '\"' << gram_struct.first << '\"' << endl << '[' << endl;
-
-    cout << "\t" << "max => \'" << gram_struct.second.max << endl;
-
-    for(const auto &int_chars : gram_struct.second.probs)
-    {
-        cout << "\t" << int_chars.first << " => \'" << int_chars.second << '\'' << endl;
-    }
-
-    cout << "]" << endl << endl;
-}
-#endif //=========================================================//
-
-
-
-
-
-
 }
 
 string TextMap::generate(int size)
 {
+    try{
+
     if(ngrams.empty()) return "No text parsed yet.";
 
     weighProbabilities();
@@ -215,10 +182,31 @@ string TextMap::generate(int size)
             size++;
         } 
     }
+
     
     return seed;
+    
+    
+    
+    
+    
+    }
+    catch(out_of_range)
+    {
+        cerr << "Thrown out of range in generate" << endl;
+    }
+
+    return "";
 }
 
+/**
+ *  Given spaced out, ordered numbers, find range number falls in :
+ *  Ranges: [3, 8, 15, 16]
+ *  Num: 11
+ *  0: is 11 <= 3? 
+ *  1: is 11 <= 8?
+ *  2: is 11 <= 15? return char at 15
+*/
 char TextMap::findFirstInRange(const int &num, const map<int, char> &charRange) const
 {
     for(const auto &int_char : charRange)
@@ -231,6 +219,9 @@ char TextMap::findFirstInRange(const int &num, const map<int, char> &charRange) 
     throw err;
 }
 
+/**
+ *  Remove crappy characters, like whitespace special chars or illegal chars.
+*/
 char TextMap::isGood(const char &c) const
 {
     if (c > 255 || c < 0) return '~';

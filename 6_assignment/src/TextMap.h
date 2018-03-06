@@ -13,14 +13,21 @@ class TextMap
         std::string generate(const int size = 200);
 
     private:
+            //  Used to associate a max value 
+            //  with the map of weighted probabilities
         struct WeightedNGram
         {
             std::map<int, char> probs; // This needs to be ordered so I can loop 
                                        // through in order and find first char
-            int max;                   // range randomly
+            int max;                   // range from a random number
         };
 
+            //  Holds mapping of NGram keys to the
+            //  count of characters following it
         std::unordered_map<std::string, std::unordered_map<char, int>> ngrams;
+            
+            //  Holds mapping of NGram keys to a 
+            //  weighted probability of characters following it
         std::unordered_map<std::string, WeightedNGram> weighted;
 
         void weighProbabilities();

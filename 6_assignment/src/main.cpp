@@ -56,14 +56,24 @@ int main()
     return 0;
 }
 
+/**
+ *  Scan through the file text and feed the map one sentence
+ *  at a time to build a more diverse mapping. Stops at each
+ *  period, exclaimation or question mark.
+ * 
+ *  @param string &fileContents     Reference to the string dump
+ *                                  from a file
+ *  @param int level                The level/order to parse text at
+ *  @return TextMap map             The complete map ready to use       
+*/
 TextMap buildMap(string &fileContents, int level)
 {
     cout << "Building map..." << endl;
  
     TextMap map = TextMap(level);
 
-    int startPosition = 0;
-    int foundPosition = 0;
+    size_t startPosition = 0;
+    size_t foundPosition = 0;
     string sentence;
     
     while((foundPosition = fileContents.find_first_of(".!?", startPosition)) != string::npos)
@@ -76,12 +86,21 @@ TextMap buildMap(string &fileContents, int level)
     return map;
 }
 
+/**
+ *  Print the intro to the program       
+*/
 void printWelcome()
 {
     cout << "Welcome to the grand writing artificial intelligence" << endl
          << "How may we help you today?" << endl << endl;
 }
 
+
+/**
+ *  Prompt the user continuously until an order between 1-10 is given.
+ * 
+ *  @return int level   The desired level the user chose       
+*/
 int getLevel()
 {
     int level = 0;
@@ -90,7 +109,7 @@ int getLevel()
     cout << "Please type in the level of search : ";
     cin >> level;
 
-    while (level < 1 || level > 10)
+    while (level < 0 || level > 10)
     {
         if(!cin)
         {
@@ -98,7 +117,7 @@ int getLevel()
             cin.ignore();
             getline(cin, clearBuffer);
         }
-        cout << "Please enter a level between 1 and 10 : ";
+        cout << "Please enter a level between 0 and 10 : ";
         cin >> level;
     }
 
@@ -108,6 +127,12 @@ int getLevel()
     return level;
 }
 
+/**
+ *  Prompt the user for a text file to read content from. Will append
+ *  a .txt extension if it was omitted.
+ * 
+ *  @return string fileName           The name of the file given       
+*/
 string getFileName()
 {
     string fileName;
@@ -124,6 +149,10 @@ string getFileName()
     return fileName;
 }
 
+/**
+ *  Print the fancy text stuff that includes a generated sentence from the map.
+ *  Will print atleast 20 characters, will continue until it reaches punctuation.       
+*/
 void generateSnippet(TextMap &map)
 {
     cout << "*****************************************************" << endl
